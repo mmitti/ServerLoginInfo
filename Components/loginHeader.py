@@ -5,4 +5,4 @@ class LoginHeader(component.Component):
         component.Component.__init__(self)
         return
     def show(self):
-        return "Welcome To " + utils.docmd("uname -n")
+        return "Welcome To " + utils.docmd("uname -n").rstrip()
