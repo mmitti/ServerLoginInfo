@@ -2,8 +2,8 @@
 import os
 from Components import *
 h = loginHeader.LoginHeader()
-u = uptime.Uptime()
-s = startDate.StartDate()
+u = date.Uptime()
+s = date.StartDate()
 k = kernel.KernelVersion()
 a = arch.Architecture()
 d = date.Date()
