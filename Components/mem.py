@@ -1,5 +1,6 @@
 import component
 import utils
+import math
 class SwapUsage(component.Component):
     def __init__(self):
         component.Component.__init__(self)
@@ -20,4 +21,4 @@ class SwapUsage(component.Component):
         if swap_total == -1:
             return "SWAP:N/A"
         swap_use = swap_total - swap_free
-        return "SWAP:" + str(int(swap_use/1024)) + "M/" + str(int(swap_total/1024)) + "M (" +str(swap_free * 100 /swap_total ) +"%Free)"
+        return "SWAP:" + str( round(swap_use/1024, 2) ) + "M/" + str(round(swap_total/1024, 2)) + "M (" +str(int(swap_free * 100 /swap_total))  +"%Free)"
