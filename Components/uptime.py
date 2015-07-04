@@ -7,7 +7,7 @@ class Uptime(component.Component):
         return
     def show(self):
         ret = "UPTIME:"
-        uptime = utils.cat("/proc/uptime").rsplit(" ")[0]
+        uptime = utils.cat("/proc/uptime").split()[0]
         delt = datetime.timedelta(seconds = int(float(uptime)))
         days = delt.days
         sec = delt.seconds
