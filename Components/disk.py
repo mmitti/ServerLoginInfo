@@ -14,10 +14,10 @@ class DiskUsage(component.Component):
         total = s.f_bsize * s.f_blocks
         free = s.f_bsize * s.f_bfree
         used = total - free
-        return label + ":"+str(used*100/total)+"%"
+        return label + ":"+str(round(used*100/total, 2))+"%"
     _disks = (("/", "ROOT"), ("/mnt/data", "DATA"), ("/mnt/dlna", "DLNA"))
     def show(self):
-        ret = "FILE SYSTEM: "
+        ret = ""
         for v in self._disks:
-            ret += self.getUsage(v[0], v[1]) + " "
+            ret += self.getUsage(v[0], v[1]) + "\n"
         return ret
