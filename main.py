@@ -29,8 +29,8 @@ def mlen(u):
    return n + len(u)
 
 def setBorder(window):
-    #window.border('|', '|', '-', '-', '+', '+', '+', '+')
-    window.border()
+    window.border('|', '|', '-', '-', '+', '+', '+', '+')
+    #window.border()
 def main(screen):
     frame = curses.initscr()
     width = curses.tigetnum("cols") - 2
@@ -52,7 +52,9 @@ def main(screen):
     w2.addstr(3,1, ms.show())
 
     w3.addstr(1, 1, dis.show() )
-    w3.addstr(2, 1, k.show()+a.show())
+    text = a.show()
+    w3.addstr(1,width - 2 - mlen(text) - 1,text)
+    w3.addstr(2, 1, k.show())
     w4.addstr(0, 1, d.show() )
     text = s.show()
     w4.addstr(0, width-2 - mlen(text) - 1, text )
