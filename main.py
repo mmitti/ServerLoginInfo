@@ -11,6 +11,7 @@ d = date.Date()
 ms = mem.SwapUsage()
 mm = mem.MemUsage()
 du = disk.DiskUsage();
+ss = service.ServiceStatus();
 print h.show()
 print u.show()
 print s.show()
@@ -21,3 +22,4 @@ print d.show()
 print ms.show()
 print mm.show()
 print du.show()
+print ss.show()
