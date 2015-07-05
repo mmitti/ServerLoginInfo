@@ -1,5 +1,5 @@
-import component
-import utils
+from . import component
+from . import utils
 class LoginHeader(component.Component):
     def __init__(self):
         component.Component.__init__(self)

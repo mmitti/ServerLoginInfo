@@ -1,5 +1,5 @@
-import component
-import utils
+from . import component
+from . import utils
 import math
 class SwapUsage(component.Component):
     def __init__(self):
@@ -21,7 +21,7 @@ class SwapUsage(component.Component):
         if swap_total == -1:
             return "SWAP:N/A"
         swap_use = swap_total - swap_free
-        return "SWAP:" + str( round(swap_use/1024, 2) ) + "M/" + str(round(swap_total/1024, 2)) + "M (" +str(int(swap_free * 100 /swap_total))  +"%Free)"
+        return "SWAP:" + utils.addSIPrefix(swap_use * 1024)+ "/" +utils.addSIPrefix(swap_total* 1024) + " (" +str(int(swap_free * 100 /swap_total))  +"%Free)"
 
 class MemUsage(component.Component):
     def __init__(self):
@@ -48,4 +48,4 @@ class MemUsage(component.Component):
             return "MEM:N/A"
         mem_actual_free = mem_free + mem_buff + mem_cache + mem_slab
         mem_use = mem_total - mem_actual_free
-        return "MEM:" + str( round(mem_use/1024, 2) ) + "M/" + str(round(mem_total/1024, 2)) + "M ("+str(int(mem_actual_free*100/mem_total))+"%Free)"
+        return "MEM:" +utils.addSIPrefix(mem_use * 1024)+ "/" +utils.addSIPrefix(mem_total* 1024) + " ("+str(int(mem_actual_free*100/mem_total))+"%Free)"

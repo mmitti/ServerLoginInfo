@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import component
-import utils
+from . import component
+from . import utils
 import datetime
 class ServiceStatus(component.Component):
     def __init__(self):

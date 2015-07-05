@@ -2,7 +2,8 @@ import shlex, subprocess, math
 
 def docmd(cmd):
     cmd_list = shlex.split(cmd)
-    return subprocess.check_output(cmd_list)
+    ret = subprocess.check_output(cmd_list).decode('utf-8')
+    return ret
 def cat(path):
     f = open(path)
     ret = f.read()

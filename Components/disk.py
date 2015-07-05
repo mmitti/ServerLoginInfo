@@ -1,6 +1,6 @@
-import component
+from . import component
 import os
-import utils
+from . import utils
 class DiskUsage(component.Component):
     def __init__(self):
         component.Component.__init__(self)
