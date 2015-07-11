@@ -11,7 +11,7 @@ class Loading(component.Component):
         width = self.window.getmaxyx()[1]
         i = (p + 1) * width / max
         i = min(i, width - 1)
-        text = "\u2B1B" * int(i)
+        text = "\u25A0" * int(i)
         self.window.addstr(0, 0, text)
     def show(self):
         self.window.refresh()
