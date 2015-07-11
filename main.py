@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
-#from Components import *
-from Components import date, utils, loginHeader, component, system
+from Components import *
+from Components import utils
 import curses
 import locale
 
@@ -26,8 +26,13 @@ def main(screen):
     curses.curs_set(0)
     curses.use_default_colors()
     curses.init_pair(0, -1, -1)
-    width = curses.tigetnum("cols") - 2
-    frame = curses.newwin(17, width, 0, 1)
+    curses.init_pair(1,-1, curses.COLOR_RED)
+    curses.init_pair(2, -1, curses.COLOR_GREEN)
+    curses.init_pair(3, -1, curses.COLOR_CYAN)
+    curses.init_pair(4, -1, curses.COLOR_YELLOW)
+    width = screen.getmaxyx()[1] - 2
+    height = screen.getmaxyx()[0]
+    frame = curses.newwin(18, width, 0, 1)
     frame.bkgdset(1)
     utils.setBorder(frame)
 
@@ -39,13 +44,18 @@ def main(screen):
     components.append( date.Date(curses.newwin(1, width -3, 6, 3)) )
     components.append( system.System(curses.newwin(4, width -2, 2, 2)) )
 
+    components.append( mem.MemInfo(curses.newwin(5, 35, 7, 2)) )
 
-    for c in components:
-        c.update()
-    frame.refresh()
-    for c in components:
-        c.show()
-    curses.napms(5000)
+    components.append( disk.DiskUsage(curses.newwin(6, width - 37, 7, 37)) )
+    components.append( service.ServiceStatus(curses.newwin(4, width-2, 13, 2)) )
+    
+    for i in range(10):
+        for c in components:
+            c.update()
+        frame.refresh()
+        for c in components:
+            c.show()
+        curses.napms(500)
 '''
     w = curses.newwin(17, width, 0, 1)
 

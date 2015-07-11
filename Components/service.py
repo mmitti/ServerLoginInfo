@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 from . import component
 from . import utils
-import datetime
+import datetime, curses
 class ServiceStatus(component.Component):
-    def __init__(self):
-        component.Component.__init__(self)
-        return
-    def show(self):
-        ret = "SERVICE:"
+    def __init__(self, w):
+        super().__init__(w)
+        utils.setBorder(w)
         loaded_count = 0
         active_count = 0
         failed_count = 0
@@ -30,10 +28,23 @@ class ServiceStatus(component.Component):
 
             if line[3] == "running":
                  running_count += 1
-        ret += str(loaded_count) + "Loaded, " + str(active_count) + "Active, " \
+        text = str(loaded_count) + "Loaded, " + str(active_count) + "Active, " \
             + str(failed_count) + "Failed, " + str(running_count) + "Running"
         if failed_count > 0:
-            ret += " @see systemctl list-units -t service[WARN]"
-        else:
-            ret += "[OK]"
-        return ret
+            text += " @see systemctl list-units -t service"
+
+        width = self.window.getmaxyx()[1]
+        self.window.addnstr(2, 1, text, width-2)
+        text = "[OK]"
+        color = 2
+        if failed_count > 0:
+            text = "[WARN]"
+            color = 4
+        self.window.addstr(2, width - utils.mlen(text) - 1, text, curses.color_pair(color))
+        text = "SERVICE"
+        self.window.addstr(1, int((width-utils.mlen(text))/2) -1 , text)
+        return
+
+    def show(self):
+        self.window.refresh();
+        return
