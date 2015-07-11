@@ -48,14 +48,17 @@ def main(screen):
 
     components.append( disk.DiskUsage(curses.newwin(6, width - 37, 7, 37)) )
     components.append( service.ServiceStatus(curses.newwin(4, width-2, 13, 2)) )
-    
-    for i in range(10):
+    ld = loading.Loading(curses.newwin(1, width-2, height - 1, 2))
+    components.append( ld )
+
+    for i in range(20):
         for c in components:
             c.update()
         frame.refresh()
+        ld.update(i, 20)
         for c in components:
             c.show()
-        curses.napms(500)
+        curses.napms(250)
 '''
     w = curses.newwin(17, width, 0, 1)
 
