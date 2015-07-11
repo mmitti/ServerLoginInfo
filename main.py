@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 import os
-from Components import *
+#from Components import *
+from Components import date, utils, loginHeader, component, system
 import curses
 import locale
-import unicodedata
 
 locale.setlocale(locale.LC_ALL,"")
+
+'''
 h = loginHeader.LoginHeader()
 u = date.Uptime()
 s = date.StartDate()
@@ -17,23 +19,34 @@ ms = mem.SwapUsage()
 mm = mem.MemUsage()
 du = disk.DiskUsage();
 ss = service.ServiceStatus();
+'''
 
 
-def mlen(u):
-   n = 0
-   for c in u:
-      wide_chars = u"WFA"
-      eaw = unicodedata.east_asian_width(c)
-      if(wide_chars.find(eaw) > -1):
-         n +=1
-   return n + len(u)
-
-def setBorder(window):
-    window.border('|', '|', '-', '-', '+', '+', '+', '+')
-    #window.border()
 def main(screen):
-    frame = curses.initscr()
+    curses.curs_set(0)
+    curses.use_default_colors()
+    curses.init_pair(0, -1, -1)
     width = curses.tigetnum("cols") - 2
+    frame = curses.newwin(17, width, 0, 1)
+    frame.bkgdset(1)
+    utils.setBorder(frame)
+
+    components = []
+
+    components.append( loginHeader.LoginHeader(curses.newwin(1, width-2, 1, 2)) )
+    if(width > 50):
+        components.append( date.Uptime(curses.newwin(1, 30, 1, width - 29)) )
+    components.append( date.Date(curses.newwin(1, width -3, 6, 3)) )
+    components.append( system.System(curses.newwin(4, width -2, 2, 2)) )
+
+
+    for c in components:
+        c.update()
+    frame.refresh()
+    for c in components:
+        c.show()
+    curses.napms(5000)
+'''
     w = curses.newwin(17, width, 0, 1)
 
     w2 = curses.newwin(5, 35, 7, 2)
@@ -75,16 +88,9 @@ def main(screen):
     setBorder(w5)
 
     setBorder(w6)
+'''
 
-    frame.refresh()
-    w.refresh()
-    w2.refresh()
-    w3.refresh()
-    w4.refresh()
 
-    w5.refresh()
 
-    w6.refresh()
-    curses.napms(5000)
 
 curses.wrapper(main)
