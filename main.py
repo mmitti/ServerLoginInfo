@@ -16,6 +16,8 @@ def main(screen):
     curses.init_pair(3, -1, curses.COLOR_CYAN)
     curses.init_pair(4, -1, curses.COLOR_YELLOW)
     width = screen.getmaxyx()[1] - 2
+    if(width < 60):
+        return
     height = screen.getmaxyx()[0]
     frame = curses.newwin(18, width, 0, 1)
     frame.bkgdset(1)
