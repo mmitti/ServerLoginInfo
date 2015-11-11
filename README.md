@@ -11,5 +11,6 @@
 
 ##著作権表示
 (c) 2015 mmitti
+
 ##連絡先
-mmitti@mail.mmitti.info
+dev@mail.mmitti.info
